@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Difficulty from "./Difficulty";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [gameMode, setGameMode] = useState("");
+  const [showGameMode, setShowGameMode] = useState(true);
+
+  const handleClick = (mode) => {
+    setGameMode(mode);
+    setShowGameMode(false);
+  };
+  // before chosing the game mode
+  if (showGameMode) {
+    return (
+      <div className="App-header">
+        <h1>Memory Game</h1>
+        <div className="GameMode">
+          <div className="Mode" onClick={() => handleClick("Easy")}>
+            Easy
+          </div>
+
+          <div className="Mode" onClick={() => handleClick("Med")}>
+            Medium
+          </div>
+
+          <div className="Mode" onClick={() => handleClick("Hard")}>
+            Hard
+          </div>
+        </div>
+      </div>
+    );
+  } else {
+    // display the game
+    return (
+      <div className="App-header">
+        <Difficulty GameMode={gameMode} />
+      </div>
+    );
+  }
 }
 
 export default App;
